@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ package.name }}
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6">
+
+                <img src="{{ package.featured_image.url }}"
+                     class="img-fluid rounded shadow"
+                     alt="{{ package.name }}">
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <h1 class="fw-bold">
+                    {{ package.name }}
+                </h1>
+
+                <p class="text-primary">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    {{ package.destination.name }}
+                </p>
+
+                <hr>
+
+                <p>{{ package.description }}</p>
+
+                <table class="table table-bordered mt-4">
+
+                    <tr>
+                        <th>Package Type</th>
+                        <td>{{ package.package_type }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Duration</th>
+                        <td>{{ package.duration }} Days</td>
+                    </tr>
+
+                    <tr>
+                        <th>Difficulty</th>
+                        <td>{{ package.difficulty }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Accommodation</th>
+                        <td>{{ package.accommodation }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Transportation</th>
+                        <td>{{ package.transportation }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Departure</th>
+                        <td>{{ package.departure_location }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Group Size</th>
+                        <td>{{ package.max_group_size }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Available Slots</th>
+                        <td>{{ package.available_slots }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Price</th>
+                        <td>NPR {{ package.price }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Rating</th>
+                        <td>⭐ {{ package.rating }}</td>
+                    </tr>
+
+                </table>
+
+                <a href="{% url 'book_package' package.slug %}"
+                    class="btn btn-success btn-lg">
+
+                    <i class="bi bi-calendar-check"></i>
+                    Book Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

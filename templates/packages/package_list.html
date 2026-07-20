@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Tour Packages
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">
+                {% if destination %}
+                    {{ destination.name }} Tour Packages
+                {% else %}
+                    Explore Tour Packages
+                {% endif %}
+            </h1>
+
+            <p class="text-muted">
+                Find the perfect travel package for your next adventure.
+            </p>
+        </div>
+
+        <div class="row">
+
+            {% for package in packages %}
+
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <img src="{{ package.featured_image.url }}"
+                         class="card-img-top"
+                         style="height:250px; object-fit:cover;"
+                         alt="{{ package.name }}">
+
+                    <div class="card-body">
+
+                        <h4 class="fw-bold">
+                            {{ package.name }}
+                        </h4>
+
+                        <p class="text-primary">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            {{ package.destination.name }}
+                        </p>
+
+                        <p>
+                            {{ package.short_description }}
+                        </p>
+
+                        <p>
+                            <strong>Duration:</strong>
+                            {{ package.duration }} Days
+                        </p>
+
+                        <p>
+                            <strong>Price:</strong>
+
+                            {% if package.discount_price %}
+                                <del>NPR {{ package.price }}</del>
+                                <span class="text-danger fw-bold">
+                                    NPR {{ package.discount_price }}
+                                </span>
+                            {% else %}
+                                NPR {{ package.price }}
+                            {% endif %}
+                        </p>
+
+                        <p>
+                            ⭐ {{ package.rating }}
+                        </p>
+
+                        <a href="{% url 'package_detail' package.slug %}"
+                           class="btn btn-primary w-100">
+                            View Package
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <div class="alert alert-warning text-center">
+
+                    No tour packages available.
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

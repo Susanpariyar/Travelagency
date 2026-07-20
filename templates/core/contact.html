@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-primary text-white py-5">
+
+    <div class="container text-center">
+
+        <h1 class="display-4 fw-bold">
+            Contact Us
+        </h1>
+
+        <p class="lead mt-3">
+            We'd love to hear from you. Get in touch with our team.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Contact Information -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-5">
+
+                <h2 class="fw-bold mb-4">
+                    Get In Touch
+                </h2>
+
+                <div class="mb-4">
+
+                    <h5>
+                        <i class="bi bi-geo-alt-fill text-primary"></i>
+                        Address
+                    </h5>
+
+                    <p>
+                        Lakeside, Pokhara, Nepal
+                    </p>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <h5>
+                        <i class="bi bi-telephone-fill text-primary"></i>
+                        Phone
+                    </h5>
+
+                    <p>
+                        +977-9812345678
+                    </p>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <h5>
+                        <i class="bi bi-envelope-fill text-primary"></i>
+                        Email
+                    </h5>
+
+                    <p>
+                        info@travelagency.com
+                    </p>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <h5>
+                        <i class="bi bi-clock-fill text-primary"></i>
+                        Office Hours
+                    </h5>
+
+                    <p>
+                        Sunday – Friday<br>
+                        9:00 AM – 6:00 PM
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-7">
+
+                <div class="card shadow">
+
+                    <div class="card-body p-4">
+
+                        <h3 class="mb-4">
+                            Send Us a Message
+                        </h3>
+
+                       <form method="POST">
+
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.phone.label_tag }}
+                                {{ form.phone }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.subject.label_tag }}
+                                {{ form.subject }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.message.label_tag }}
+                                {{ form.message }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Send Message
+                            </button>
+
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Map Placeholder -->
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="card shadow">
+
+            <div class="card-body text-center p-5">
+
+                <h3>
+                    Google Map
+                </h3>
+
+                <p class="text-muted">
+
+                    Google Map will be integrated here later.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

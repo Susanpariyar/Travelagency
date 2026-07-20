@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Booking Details
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white">
+
+                <h2 class="mb-0">
+                    Booking Details
+                </h2>
+
+            </div>
+
+            <div class="card-body">
+
+                <h4 class="fw-bold mb-4">
+
+                    {{ booking.package.name }}
+
+                </h4>
+
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th width="35%">Booking ID</th>
+                        <td>{{ booking.booking_id }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Destination</th>
+                        <td>{{ booking.package.destination.name }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Travel Date</th>
+                        <td>{{ booking.travel_date }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Travelers</th>
+                        <td>{{ booking.travelers }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Contact Phone</th>
+                        <td>{{ booking.contact_phone }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Emergency Contact</th>
+                        <td>
+                            {% if booking.emergency_contact %}
+                                {{ booking.emergency_contact }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Special Requests</th>
+                        <td>
+                            {% if booking.special_requests %}
+                                {{ booking.special_requests }}
+                            {% else %}
+                                No special requests.
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Total Price</th>
+                        <td>
+                            <strong>
+                                NPR {{ booking.total_price }}
+                            </strong>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Booking Status</th>
+                        <td>{{ booking.booking_status }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Payment Status</th>
+                        <td>{{ booking.payment_status }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Booked On</th>
+                        <td>{{ booking.created_at }}</td>
+                    </tr>
+
+                </table>
+
+                {% if booking.booking_status == "Pending" %}
+
+                <a href="{% url 'cancel_booking' booking.booking_id %}"
+                    class="btn btn-danger">
+
+                    <i class="bi bi-x-circle"></i>
+                    Cancel Booking
+
+                </a>
+
+                {% endif %}
+
+                <a href="{% url 'my_bookings' %}"
+                   class="btn btn-secondary">
+
+                    <i class="bi bi-arrow-left"></i>
+                    Back to My Bookings
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

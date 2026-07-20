@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ destination.name }}
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Destination Image -->
+            <div class="col-lg-6">
+                <img src="{{ destination.image.url }}"
+                     class="img-fluid rounded shadow"
+                     alt="{{ destination.name }}">
+            </div>
+
+            <!-- Destination Information -->
+            <div class="col-lg-6">
+
+                <h1 class="fw-bold">
+                    {{ destination.name }}
+                </h1>
+
+                <h4 class="text-primary">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    {{ destination.country }}
+                </h4>
+
+                <hr>
+
+                <p>
+                    {{ destination.description }}
+                </p>
+
+                <div class="row mt-4">
+
+                    <!-- Best Season -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <h5>Best Season</h5>
+                                <p class="mb-0">
+                                    {{ destination.best_season }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <h5>Estimated Budget</h5>
+                                <p class="mb-0">
+                                    NPR {{ destination.estimated_budget }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr class="my-5">
+
+        <div class="row">
+
+            <!-- Attractions -->
+            <div class="col-lg-6">
+
+                <h3 class="mb-3">
+                    Top Attractions
+                </h3>
+
+                <p style="white-space: pre-line;">
+                    {{ destination.attractions }}
+                </p>
+
+            </div>
+
+            <!-- Activities -->
+            <div class="col-lg-6">
+
+                <h3 class="mb-3">
+                    Activities
+                </h3>
+
+                <p style="white-space: pre-line;">
+                    {{ destination.activities }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Browse Packages Button -->
+        <div class="text-center mt-5">
+
+            <a href="{% url 'destination_packages' destination.slug %}"
+                class="btn btn-primary btn-lg">
+                Browse Packages
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

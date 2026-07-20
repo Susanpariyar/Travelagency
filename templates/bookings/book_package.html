@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Book {{ package.name }}
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Package Summary -->
+
+            <div class="col-lg-5">
+
+                <div class="card shadow">
+
+                    <img src="{{ package.featured_image.url }}"
+                         class="card-img-top"
+                         style="height:300px;object-fit:cover;"
+                         alt="{{ package.name }}">
+
+                    <div class="card-body">
+
+                        <h3 class="fw-bold">
+                            {{ package.name }}
+                        </h3>
+
+                        <p class="text-primary">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            {{ package.destination.name }}
+                        </p>
+
+                        <hr>
+
+                        <p>
+                            {{ package.short_description }}
+                        </p>
+
+                        <table class="table">
+
+                            <tr>
+                                <th>Duration</th>
+                                <td>{{ package.duration }} Days</td>
+                            </tr>
+
+                            <tr>
+                                <th>Price</th>
+                                <td>
+                                    <strong>
+                                        NPR {{ package.price }}
+                                    </strong>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>Difficulty</th>
+                                <td>{{ package.difficulty }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Available Slots</th>
+                                <td>{{ package.available_slots }}</td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Booking Form -->
+
+            <div class="col-lg-7">
+
+                <div class="card shadow">
+
+                    <div class="card-body p-4">
+
+                        <h2 class="mb-4">
+                            Booking Details
+                        </h2>
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                {{ form.travel_date.label_tag }}
+                                {{ form.travel_date }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.travelers.label_tag }}
+                                {{ form.travelers }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.contact_phone.label_tag }}
+                                {{ form.contact_phone }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.emergency_contact.label_tag }}
+                                {{ form.emergency_contact }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.special_requests.label_tag }}
+                                {{ form.special_requests }}
+                            </div>
+
+                            <div class="alert alert-info">
+
+                                <h5 class="mb-0">
+
+                                    Total Price:
+                                    <strong>
+                                        NPR {{ package.price }}
+                                    </strong>
+
+                                </h5>
+
+                                <small>
+                                    Final total will be calculated based on the number of travelers.
+                                </small>
+
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-success btn-lg w-100">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Confirm Booking
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

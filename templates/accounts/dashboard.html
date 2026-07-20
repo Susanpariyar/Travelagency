@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>User Dashboard</h1>
+    <p>Welcome, {{ request.user.first_name|default:request.user.username }}!</p>
+
+    <ul>
+        <li><a href="{% url 'profile' %}">My Profile</a></li>
+        <li>My Bookings</li>
+        <li>Wishlist</li>
+        <li>Payment History</li>
+    </ul>
+{% endblock %}

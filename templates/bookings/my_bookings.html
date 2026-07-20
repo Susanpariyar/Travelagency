@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Bookings
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <h1 class="fw-bold mb-4">
+            My Bookings
+        </h1>
+
+        {% if bookings %}
+
+            <div class="row">
+
+                {% for booking in bookings %}
+
+                <div class="col-lg-6 mb-4">
+
+                    <div class="card shadow h-100">
+
+                        <div class="card-body">
+
+                            <h4 class="fw-bold">
+                                {{ booking.package.name }}
+                            </h4>
+
+                            <hr>
+
+                            <p>
+                                <strong>Booking ID:</strong>
+                                {{ booking.booking_id }}
+                            </p>
+
+                            <p>
+                                <strong>Travel Date:</strong>
+                                {{ booking.travel_date }}
+                            </p>
+
+                            <p>
+                                <strong>Travelers:</strong>
+                                {{ booking.travelers }}
+                            </p>
+
+                            <p>
+                                <strong>Total Price:</strong>
+                                NPR {{ booking.total_price }}
+                            </p>
+
+                            <p>
+                                <strong>Booking Status:</strong>
+
+                                {% if booking.booking_status == "Pending" %}
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+
+                                {% elif booking.booking_status == "Confirmed" %}
+                                    <span class="badge bg-success">
+                                        Confirmed
+                                    </span>
+
+                                {% elif booking.booking_status == "Completed" %}
+                                    <span class="badge bg-primary">
+                                        Completed
+                                    </span>
+
+                                {% else %}
+                                    <span class="badge bg-danger">
+                                        Cancelled
+                                    </span>
+                                {% endif %}
+
+                            </p>
+
+                            <p>
+                                <strong>Payment:</strong>
+
+                                {% if booking.payment_status == "Paid" %}
+                                    <span class="badge bg-success">
+                                        Paid
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary">
+                                        {{ booking.payment_status }}
+                                    </span>
+                                {% endif %}
+                            </p>
+
+                            <a href="{% url 'booking_detail' booking.booking_id %}"
+                                class="btn btn-outline-primary">
+
+                                <i class="bi bi-eye"></i>
+                                View Details
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-info">
+
+                You haven't made any bookings yet.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}
