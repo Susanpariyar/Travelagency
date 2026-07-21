@@ -71,7 +71,17 @@ Tour Packages
                         </p>
 
                         <p>
-                            ⭐ {{ package.rating }}
+
+                            {% if package.average_rating %}
+
+                                ⭐ {{ package.average_rating|floatformat:1 }}/5
+
+                            {% else %}
+
+                                No ratings yet
+
+                            {% endif %}
+
                         </p>
 
                         <a href="{% url 'package_detail' package.slug %}"

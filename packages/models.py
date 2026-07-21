@@ -81,11 +81,7 @@ class TourPackage(models.Model):
         upload_to='packages/'
     )
 
-    rating = models.DecimalField(
-        max_digits=2,
-        decimal_places=1,
-        default=5.0
-    )
+    
 
     is_featured = models.BooleanField(default=False)
 

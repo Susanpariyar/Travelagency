@@ -26,6 +26,17 @@
                     {{ package.name }}
                 </h1>
 
+                {% if average_rating %}
+                <p class="text-warning fs-5">
+                    ⭐ Average Rating:
+                    <strong>{{ average_rating|floatformat:1 }}/5</strong>
+                </p>
+                {% else %}
+                <p class="text-muted">
+                    No reviews yet.
+                </p>
+                {% endif %}
+
                 <p class="text-primary">
                     <i class="bi bi-geo-alt-fill"></i>
                     {{ package.destination.name }}
@@ -84,18 +95,54 @@
 
                     <tr>
                         <th>Rating</th>
-                        <td>⭐ {{ package.rating }}</td>
+                        <td>
+
+                            {% if average_rating %}
+
+                                ⭐ {{ average_rating|floatformat:1 }}/5
+
+                            {% else %}
+
+                                No ratings yet
+
+                            {% endif %}
+
+                        </td>
                     </tr>
 
                 </table>
 
-                <a href="{% url 'book_package' package.slug %}"
-                    class="btn btn-success btn-lg">
 
-                    <i class="bi bi-calendar-check"></i>
-                    Book Now
 
-                </a>
+                <div class="d-flex align-items-center gap-3">
+
+                    <a href="{% url 'book_package' package.slug %}"
+                        class="btn btn-success btn-lg">
+                        Book Now
+                    </a>
+                    
+
+                    {% if can_review and not already_reviewed %}
+
+                    <a href="{% url 'add_review' package.slug %}"
+                        class="btn btn-warning-subtle text-warning border border-warning-subtle btn-lg">
+
+                        Write Review
+
+                    </a>
+
+                    {% elif already_reviewed %}
+
+                    <span class="badge bg-success-subtle text-success border border-success-subtle fs-6">
+
+                        ✓ You have already reviewed this package
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
 
             </div>
 
@@ -104,5 +151,71 @@
     </div>
 
 </section>
+
+
+
+<hr class="my-5">
+
+<h2 class="mb-4">
+    Customer Reviews
+</h2>
+
+{% if reviews %}
+
+    {% for review in reviews %}
+
+    <div class="card mb-3 shadow-sm">
+
+        <div class="card-body">
+
+            <h5>
+                {{ review.user.username }}
+            </h5>
+
+            <p class="text-warning">
+
+                {% for i in "12345" %}
+
+                    {% if forloop.counter <= review.rating %}
+
+                        ⭐
+
+                    {% else %}
+
+                        ☆
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </p>
+
+            <p>
+
+                {{ review.comment }}
+
+            </p>
+
+            <small class="text-muted">
+
+                {{ review.created_at|date:"M d, Y" }}
+
+            </small>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="alert alert-info">
+
+Be the first to review this package!
+
+</div>
+
+{% endif %}
 
 {% endblock %}

@@ -14,7 +14,6 @@ class TourPackageAdmin(admin.ModelAdmin):
         'duration',
         'difficulty',
         'available_slots',
-        'rating',
         'is_featured',
         'is_available',
     )
