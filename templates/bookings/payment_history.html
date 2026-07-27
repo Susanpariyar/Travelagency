@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Payment History
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <h2 class="fw-bold mb-4">
+            💳 Payment History
+        </h2>
+
+        {% if bookings %}
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Booking ID</th>
+                        <th>Package</th>
+                        <th>Travel Date</th>
+                        <th>Amount</th>
+                        <th>Payment</th>
+                        <th>Booking</th>
+                        <th>Date</th>
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for booking in bookings %}
+
+                    <tr>
+
+                        <td>{{ booking.booking_id }}</td>
+
+                        <td>{{ booking.package.name }}</td>
+
+                        <td>{{ booking.travel_date }}</td>
+
+                        <td>NPR {{ booking.total_price }}</td>
+
+                        <td>
+
+                            {% if booking.payment_status == "Paid" %}
+
+                                <span class="badge bg-success">
+
+                                    Paid
+
+                                </span>
+
+                            {% elif booking.payment_status == "Pending" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Pending
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    Refunded
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ booking.booking_status }}
+
+                        </td>
+
+                        <td>
+
+                            {{ booking.created_at|date:"M d, Y" }}
+
+                        </td>
+
+                        <td>
+
+                            <a href="{% url 'booking_detail' booking.booking_id %}"
+                               class="btn btn-sm btn-primary">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            You haven't made any payments yet.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

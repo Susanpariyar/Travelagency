@@ -8,5 +8,6 @@ urlpatterns = [
     path("my-bookings/",views.my_bookings,name="my_bookings"),
     path("details/<str:booking_id>/",views.booking_detail,name="booking_detail"),
     path("cancel/<str:booking_id>/",views.cancel_booking,name="cancel_booking"),
+    path('payments/', views.payment_history,name='payment_history'),
 
 ]

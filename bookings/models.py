@@ -61,6 +61,7 @@ class Booking(models.Model):
 
     booking_status = models.CharField(
         max_length=20,
+        
         choices=BOOKING_STATUS,
         default='Pending'
     )

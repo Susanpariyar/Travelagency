@@ -142,3 +142,22 @@ def cancel_booking(request, booking_id):
         "bookings/cancel_booking.html",
         context
     )
+
+
+
+@login_required
+def payment_history(request):
+
+    bookings = Booking.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+
+    context = {
+        'bookings': bookings
+    }
+
+    return render(
+        request,
+        'bookings/payment_history.html',
+        context
+    )

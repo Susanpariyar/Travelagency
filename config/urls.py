@@ -38,6 +38,7 @@ urlpatterns = [
     path('packages/', include('packages.urls')),
     path("bookings/",include("bookings.urls")),
     path('reviews/', include('reviews.urls')),
+    path('wishlist/', include('wishlist.urls')),
 ]
 
 if settings.DEBUG:

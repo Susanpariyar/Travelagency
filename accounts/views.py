@@ -3,6 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
+from bookings.models import Booking
+from wishlist.models import Wishlist
+from reviews.models import Review
+from django.db.models import Sum
+
 
 def register(request):
     if request.user.is_authenticated:
@@ -22,7 +27,38 @@ def register(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+
+    booking_count = Booking.objects.filter(
+        user=request.user
+    ).count()
+
+    wishlist_count = Wishlist.objects.filter(
+        user=request.user
+    ).count()
+
+    review_count = Review.objects.filter(
+        user=request.user
+    ).count()
+
+    total_paid = Booking.objects.filter(
+        user=request.user,
+        payment_status='Paid'
+    ).aggregate(
+        total=Sum('total_price')
+    )['total'] or 0
+
+    context = {
+        'booking_count': booking_count,
+        'wishlist_count': wishlist_count,
+        'review_count': review_count,
+        'total_paid': total_paid,
+    }
+
+    return render(
+        request,
+        'accounts/dashboard.html',
+        context
+    )
 
 
 @login_required

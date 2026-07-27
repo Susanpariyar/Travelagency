@@ -120,6 +120,31 @@
                         class="btn btn-success btn-lg">
                         Book Now
                     </a>
+
+
+                    {% if user.is_authenticated %}
+
+                        {% if is_in_wishlist %}
+
+                            <a href="{% url 'toggle_wishlist' package.slug %}"
+                                class="btn btn-danger btn-lg">
+
+                                ❤️ Remove Wishlist
+
+                            </a>
+
+                        {% else %}
+
+                            <a href="{% url 'toggle_wishlist' package.slug %}"
+                                class="btn btn-outline-danger btn-lg">
+
+                                🤍 Add to Wishlist
+
+                            </a>
+
+                        {% endif %}
+
+                    {% endif %}
                     
 
                     {% if can_review and not already_reviewed %}

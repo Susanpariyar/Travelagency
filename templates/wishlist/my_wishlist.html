@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Wishlist
+{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h1 class="fw-bold">
+                ❤️ My Wishlist
+            </h1>
+
+            <p class="text-muted">
+                Your saved tour packages.
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            {% for item in wishlist_items %}
+
+            <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <img src="{{ item.package.featured_image.url }}"
+                         class="card-img-top"
+                         style="height:250px; object-fit:cover;"
+                         alt="{{ item.package.name }}">
+
+                    <div class="card-body">
+
+                        <h4>{{ item.package.name }}</h4>
+
+                        <p class="text-primary">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            {{ item.package.destination.name }}
+
+                        </p>
+
+                        <p>
+
+                            NPR {{ item.package.price }}
+
+                        </p>
+
+                        <a href="{% url 'package_detail' item.package.slug %}"
+                           class="btn btn-primary">
+
+                            View Package
+
+                        </a>
+
+                        <a href="{% url 'remove_from_wishlist' item.package.slug %}"
+                           class="btn btn-outline-danger">
+
+                            Remove
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <div class="alert alert-info text-center">
+
+                    You haven't added any packages to your wishlist yet.
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

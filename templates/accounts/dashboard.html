@@ -1,15 +1,214 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard
+{% endblock %}
 
 {% block content %}
-    <h1>User Dashboard</h1>
-    <p>Welcome, {{ request.user.first_name|default:request.user.username }}!</p>
 
-    <ul>
-        <li><a href="{% url 'profile' %}">My Profile</a></li>
-        <li>My Bookings</li>
-        <li>Wishlist</li>
-        <li>Payment History</li>
-    </ul>
+<div class="container py-5">
+
+    <h2 class="fw-bold mb-4">
+        Welcome, {{ request.user.first_name|default:request.user.username }} 👋
+    </h2>
+
+    <!-- Statistics -->
+    <div class="row mb-5">
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card shadow border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="text-primary">
+
+                        {{ booking_count }}
+
+                    </h1>
+
+                    <h5>
+
+                        Bookings
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card shadow border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="text-danger">
+
+                        {{ wishlist_count }}
+
+                    </h1>
+
+                    <h5>
+
+                        Wishlist
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card shadow border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h1 class="text-warning">
+
+                        {{ review_count }}
+
+                    </h1>
+
+                    <h5>
+
+                        Reviews
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-3">
+
+            <div class="card shadow border-0 text-center h-100">
+
+                <div class="card-body">
+
+                    <h4 class="text-success">
+
+                        NPR {{ total_paid }}
+
+                    </h4>
+
+                    <h5>
+
+                        Total Paid
+
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Dashboard Menu -->
+    <div class="row g-4">
+
+        <div class="col-md-6">
+
+            <a href="{% url 'profile' %}"
+               class="text-decoration-none text-dark">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h4>👤 My Profile</h4>
+
+                        <p class="text-muted">
+                            View your personal information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <a href="{% url 'my_bookings' %}"
+               class="text-decoration-none text-dark">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h4>📅 My Bookings</h4>
+
+                        <p class="text-muted">
+                            View all your tour bookings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <a href="{% url 'my_wishlist' %}"
+               class="text-decoration-none text-dark">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h4>❤️ Wishlist</h4>
+
+                        <p class="text-muted">
+                            Your saved travel packages.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <a href="{% url 'payment_history' %}"
+               class="text-decoration-none text-dark">
+
+                <div class="card shadow-sm h-100">
+
+                    <div class="card-body text-center">
+
+                        <h4>💳 Payment History</h4>
+
+                        <p class="text-muted">
+                            View your payment records.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 {% endblock %}

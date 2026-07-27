@@ -4,6 +4,7 @@ from destinations.models import Destination
 from reviews.models import Review
 from django.db.models import Avg
 from bookings.models import Booking
+from wishlist.models import Wishlist
 
 def package_list(request):
     packages = TourPackage.objects.filter(
@@ -57,12 +58,25 @@ def package_detail(request, slug):
             package=package
         ).exists()
 
+
+    is_in_wishlist = False
+
+    if request.user.is_authenticated:
+
+        is_in_wishlist = Wishlist.objects.filter(
+            user=request.user,
+            package=package
+        ).exists()
+
+
     context = {
         'package': package,
         'reviews': reviews,'already_reviewed': already_reviewed,
         'average_rating': average_rating,
         'can_review': can_review,
         'already_reviewed': already_reviewed,
+        'package': package,
+        'is_in_wishlist': is_in_wishlist,
     }
 
 

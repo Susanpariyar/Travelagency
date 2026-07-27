@@ -14,6 +14,7 @@ class BookingAdmin(admin.ModelAdmin):
         'total_price',
         'booking_status',
         'payment_status',
+        'created_at',
     )
 
     list_filter = (
@@ -26,6 +27,7 @@ class BookingAdmin(admin.ModelAdmin):
     search_fields = (
         'booking_id',
         'user__username',
+        'user__first_name',
         'user__email',
         'package__name',
     )
@@ -33,6 +35,8 @@ class BookingAdmin(admin.ModelAdmin):
     ordering = (
         '-created_at',
     )
+
+    list_per_page = 20
 
     readonly_fields = (
         'booking_id',
@@ -76,3 +80,26 @@ class BookingAdmin(admin.ModelAdmin):
             )
         }),
     )
+
+    actions = (
+        'mark_as_confirmed',
+        'mark_as_completed',
+        'mark_as_paid',
+        'mark_as_refunded',
+    )
+
+    @admin.action(description="Mark selected bookings as Confirmed")
+    def mark_as_confirmed(self, request, queryset):
+        queryset.update(booking_status="Confirmed")
+
+    @admin.action(description="Mark selected bookings as Completed")
+    def mark_as_completed(self, request, queryset):
+        queryset.update(booking_status="Completed")
+
+    @admin.action(description="Mark selected bookings as Paid")
+    def mark_as_paid(self, request, queryset):
+        queryset.update(payment_status="Paid")
+
+    @admin.action(description="Mark selected bookings as Refunded")
+    def mark_as_refunded(self, request, queryset):
+        queryset.update(payment_status="Refunded")
