@@ -3,13 +3,68 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Account</button>
-    </form>
+<div class="container py-5">
 
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="mb-3">
+                            <i class="bi bi-person-plus-fill text-primary"
+                               style="font-size: 3rem;"></i>
+                        </div>
+
+                        <h2 class="fw-bold mb-2">
+                            Create an Account
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Join us and start planning your next journey.
+                        </p>
+
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 py-2 fw-semibold">
+                            <i class="bi bi-person-plus me-2"></i>
+                            Create Account
+                        </button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+
+                        <p class="text-muted mb-2">
+                            Already have an account?
+                        </p>
+
+                        <a href="{% url 'login' %}"
+                           class="btn btn-outline-primary w-100">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+                            Login Here
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

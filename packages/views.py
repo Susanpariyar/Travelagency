@@ -7,14 +7,44 @@ from bookings.models import Booking
 from wishlist.models import Wishlist
 
 def package_list(request):
+
     packages = TourPackage.objects.filter(
         is_available=True
     ).annotate(
         average_rating=Avg('reviews__rating')
     )
 
+    # Search by package name
+    search = request.GET.get('search', '')
+
+    if search:
+        packages = packages.filter(
+            name__icontains=search
+        )
+
+    # Filter by destination
+    destination_id = request.GET.get('destination', '')
+
+    if destination_id:
+        packages = packages.filter(
+            destination_id=destination_id
+        )
+
+    # Sort by price
+    sort = request.GET.get('sort', '')
+
+    if sort == 'low':
+        packages = packages.order_by('price')
+
+    elif sort == 'high':
+        packages = packages.order_by('-price')
+
     context = {
-        'packages': packages
+        'packages': packages,
+        'destinations': Destination.objects.all(),
+        'search': search,
+        'selected_destination': destination_id,
+        'selected_sort': sort,
     }
 
     return render(

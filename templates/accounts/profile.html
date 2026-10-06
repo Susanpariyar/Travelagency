@@ -1,21 +1,175 @@
 {% extends 'base.html' %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 {% block content %}
-    <h1>My Profile</h1>
 
-    {% if request.user.profile.profile_image %}
-        <img src="{{ request.user.profile.profile_image.url }}" alt="Profile Image" width="150">
-    {% endif %}
+<div class="container py-5">
 
-    <p><strong>Username:</strong> {{ request.user.username }}</p>
-    <p><strong>First Name:</strong> {{ request.user.first_name }}</p>
-    <p><strong>Last Name:</strong> {{ request.user.last_name }}</p>
-    <p><strong>Email:</strong> {{ request.user.email }}</p>
-    <p><strong>Phone:</strong> {{ request.user.profile.phone_number }}</p>
-    <p><strong>Address:</strong> {{ request.user.profile.address }}</p>
-    <p><strong>Date of Birth:</strong> {{ request.user.profile.date_of_birth }}</p>
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">
+            <i class="bi bi-person-circle text-primary me-2"></i>
+            My Profile
+        </h2>
+        <p class="text-muted">
+            Manage and view your personal information
+        </p>
+    </div>
 
-    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8 col-xl-7">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <!-- Profile Header -->
+                <div class="bg-primary text-white text-center py-4">
+
+                    {% if request.user.profile.profile_image %}
+
+                        <img src="{{ request.user.profile.profile_image.url }}"
+                             alt="Profile Image"
+                             class="rounded-circle border border-4 border-white shadow"
+                             style="width: 130px; height: 130px; object-fit: cover;">
+
+                    {% else %}
+
+                        <div class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center mx-auto shadow"
+                             style="width: 130px; height: 130px;">
+
+                            <i class="bi bi-person-fill" style="font-size: 4rem;"></i>
+
+                        </div>
+
+                    {% endif %}
+
+                    <h3 class="fw-bold mt-3 mb-1">
+                        {{ request.user.first_name }}
+                        {{ request.user.last_name }}
+                    </h3>
+
+                    <p class="mb-0 opacity-75">
+                        @{{ request.user.username }}
+                    </p>
+
+                </div>
+
+                <!-- Profile Information -->
+                <div class="card-body p-4 p-md-5">
+
+                    <h5 class="fw-bold mb-4">
+                        <i class="bi bi-person-vcard text-primary me-2"></i>
+                        Personal Information
+                    </h5>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-person me-1"></i>
+                                    Username
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.username }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-envelope me-1"></i>
+                                    Email
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.email }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-person me-1"></i>
+                                    First Name
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.first_name|default:"Not provided" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-person me-1"></i>
+                                    Last Name
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.last_name|default:"Not provided" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-telephone me-1"></i>
+                                    Phone
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.profile.phone_number|default:"Not provided" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    Date of Birth
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.profile.date_of_birth|default:"Not provided" }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="p-3 bg-light rounded-3">
+                                <small class="text-muted d-block mb-1">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    Address
+                                </small>
+                                <span class="fw-semibold">
+                                    {{ request.user.profile.address|default:"Not provided" }}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-5">
+
+                        <a href="{% url 'edit_profile' %}"
+                           class="btn btn-primary px-5 py-2 fw-semibold">
+
+                            <i class="bi bi-pencil-square me-2"></i>
+                            Edit Profile
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

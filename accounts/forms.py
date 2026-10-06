@@ -21,6 +21,10 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = ''
+
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
